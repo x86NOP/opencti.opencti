@@ -1,9 +1,14 @@
 {
-    "name": "Workbench",
+    "name": "opencti-dev",
     "remoteUser": "vscode",
     "shutdownAction": "stopContainer",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "args": {
+          "NVM_VERSION": "v0.39.7",
+          "NODE_VERSION": "20",
+          "DOCKER_COMPOSE_VERSION": "v2.26.1"
+        }
     },
     "workspaceFolder": "/${localWorkspaceFolderBasename}",
     "workspaceMount": "source=${localWorkspaceFolder}/,target=/${localWorkspaceFolderBasename},type=bind,consistency=cached",
@@ -15,10 +20,14 @@
         "CONF": "/opencti/.devcontainer/config.json"
     },
     "postCreateCommand": "docker network create opencti_default &> /dev/null && sleep 1 && docker network connect opencti_default `hostname` || exit 0",
-    "extensions": [
-        "ms-azuretools.vscode-docker",
-        "esbenp.prettier-vscode",
-        "dsznajder.es7-react-js-snippets"
-    ],
-    "settings": {}
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-azuretools.vscode-docker",
+          "esbenp.prettier-vscode",
+          "dsznajder.es7-react-js-snippets"
+        ],
+        "settings": {}
+      }
+    }
 }
